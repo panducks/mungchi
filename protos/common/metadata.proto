@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package common;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gen/go/commonpb";
+
+message Metadata {
+  google.protobuf.Timestamp timestamp = 1;
+  TraceMetadata trace = 2;
+  string requester_id = 3;
+}
+
+message TraceMetadata {
+  string trace_parent = 1;
+  string trace_state = 2;
+}

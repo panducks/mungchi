@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+import "common/metadata.proto";
+import "common/result.proto";
+
+option go_package = "gen/go/gadakpb";
+
+message Reply {
+  string reply_id = 1;
+  string gadak_id = 2;
+  string user_id = 3;
+  string content = 4;
+}
+
+message ListRepliesRequest {
+  common.Metadata metadata = 1;
+  string gadak_id = 2;
+  int32 max_reply_count = 3;
+  // Pass continuation_token from ListRepliesResponse.
+  string continuation_token = 4;
+}
+
+message ListRepliesResponse {
+  common.ResponseStatusCode status_code = 1;
+  repeated Reply replies = 2;
+  // If we have no more replies, continuation_token is zero-valued.
+  string continuation_token = 3;
+}
+
+message CreateReplyRequest {
+  common.Metadata metadata = 1;
+  string gadak_id = 2;
+  string content = 3;
+}
+
+message CreateReplyResponse {
+  common.ResponseStatusCode status_code = 1;
+  string reply_id = 2;
+}
+
+message UpdateReplyRequest {
+  common.Metadata metadata = 1;
+  string reply_id = 2;
+  string content = 3;
+}
+
+message UpdateReplyResponse {
+  common.ResponseStatusCode status_code = 1;
+}
+
+message DeleteReplyRequest {
+  common.Metadata metadata = 1;
+  string reply_id = 2;
+}
+
+message DeleteReplyResponse {
+  common.ResponseStatusCode status_code = 1;
+}
