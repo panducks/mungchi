@@ -10,7 +10,7 @@ option go_package = "gen/go/commonpb";
 message RequestMetadata {
   google.protobuf.Timestamp timestamp = 1;
   TraceMetadata trace = 2;
-  string requester_id = 3;
+  string requester_user_id = 3;
 }
 
 message TraceMetadata {
