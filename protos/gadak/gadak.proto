@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "common/metadata.proto";
-import "common/result.proto";
 import "gadak/reply.proto";
 
 option go_package = "gen/go/gadakpb";
@@ -38,17 +37,17 @@ enum GadakVisiblity {
 }
 
 message GetGadakRequest {
-  common.Metadata metadata = 1;
+  common.RequestMetadata request_metadata = 1;
   string gadak_id = 2;
 }
 
 message GetGadakResponse {
-  common.ResponseStatusCode status_code = 1;
+  common.ResponseMetadata response_metadata = 1;
   Gadak gadak = 2;
 }
 
 message ListGadaksRequest {
-  common.Metadata metadata = 1;
+  common.RequestMetadata request_metadata = 1;
   int32 max_gadak_count = 2;
   int32 max_reply_count_per_gadak = 3;
   // Pass continuation_token from ListGadaksResponse.
@@ -56,26 +55,26 @@ message ListGadaksRequest {
 }
 
 message ListGadaksResponse {
-  common.ResponseStatusCode status_code = 1;
+  common.ResponseMetadata response_metadata = 1;
   GadakWithReply gadaks_with_reply = 2;
   // If we have no more replies, continuation_token is zero-valued.
   string continuation_token = 3;
 }
 
 message CreateGadakRequest {
-  common.Metadata metadata = 1;
+  common.RequestMetadata request_metadata = 1;
   string content = 2;
   repeated string image_urls = 3;
   GadakVisiblity visibility = 4;
 }
 
 message CreateGadakResponse {
-  common.ResponseStatusCode status_code = 1;
+  common.ResponseMetadata response_metadata = 1;
   string gadak_id = 2;
 }
 
 message UpdateGadakRequest {
-  common.Metadata metadata = 1;
+  common.RequestMetadata request_metadata = 1;
   string gadak_id = 2;
   string content = 3;
   repeated string image_urls = 4;
@@ -83,14 +82,14 @@ message UpdateGadakRequest {
 }
 
 message UpdateGadakResponse {
-  common.ResponseStatusCode status_code = 1;
+  common.ResponseMetadata response_metadata = 1;
 }
 
 message DeleteGadakRequest {
-  common.Metadata metadata = 1;
+  common.RequestMetadata request_metadata = 1;
   string gadak_id = 2;
 }
 
 message DeleteGadakResponse {
-  common.ResponseStatusCode status_code = 1;
+  common.ResponseMetadata response_metadata = 1;
 }
