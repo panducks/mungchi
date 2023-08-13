@@ -38,6 +38,16 @@ proto-follow: protoc protoc-gen-go protoc-gen-go-grpc proto-common ## Compile pr
 		--go-grpc_opt=paths=import \
 		protos/follow/*.proto
 
+.PHONY: proto-notification
+proto-notification: protoc protoc-gen-go protoc-gen-go-grpc proto-common ## Compile protocol buffers of notification.
+	@PATH=$(LOCALPATH) protoc \
+		-Iprotos \
+		--go_out=. \
+		--go_opt=paths=import \
+		--go-grpc_out=. \
+		--go-grpc_opt=paths=import \
+		protos/notification/*.proto
+
 .PHONY: proto-common
 proto-common: protoc protoc-gen-go protoc-gen-go-grpc ## Compile protocol buffers of common.
 	@PATH=$(LOCALPATH) protoc \
