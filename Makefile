@@ -28,6 +28,16 @@ proto-gadak: protoc protoc-gen-go protoc-gen-go-grpc proto-common ## Compile pro
 		--go-grpc_opt=paths=import \
 		protos/gadak/*.proto
 
+.PHONY: proto-follow
+proto-follow: protoc protoc-gen-go protoc-gen-go-grpc proto-common ## Compile protocol buffers of follow.
+	@PATH=$(LOCALPATH) protoc \
+		-Iprotos \
+		--go_out=. \
+		--go_opt=paths=import \
+		--go-grpc_out=. \
+		--go-grpc_opt=paths=import \
+		protos/follow/*.proto
+
 .PHONY: proto-common
 proto-common: protoc protoc-gen-go protoc-gen-go-grpc ## Compile protocol buffers of common.
 	@PATH=$(LOCALPATH) protoc \

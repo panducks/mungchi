@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+import "common/metadata.proto";
+
+option go_package = "gen/go/followpb";
+
+service FollowService {
+  rpc ListFollowers(ListFollowersRequest) returns (ListFollowersResponse) {}
+  rpc ListFollowees(ListFolloweesRequest) returns (ListFolloweesResponse) {}
+  rpc FollowUser(FollowUserRequest) returns (FollowUserResponse) {}
+  rpc UnfollowUser(UnfollowUserRequest) returns (UnfollowUserResponse) {}
+}
+
+message ListFollowersRequest {
+  common.RequestMetadata request_metadata = 1;
+  string target_user_id = 2;
+}
+
+message ListFollowersResponse {
+  common.ResponseMetadata response_metadata = 1;
+  repeated string follower_user_ids = 2;
+}
+
+message ListFolloweesRequest {
+  common.RequestMetadata request_metadata = 1;
+  string target_user_id = 2;
+}
+
+message ListFolloweesResponse {
+  common.ResponseMetadata response_metadata = 1;
+  repeated string followee_user_ids = 2;
+}
+
+message FollowUserRequest {
+  common.RequestMetadata request_metadata = 1;
+  string followee_user_id = 2;
+}
+
+message FollowUserResponse {
+  common.ResponseMetadata response_metadata = 1;
+}
+
+message UnfollowUserRequest {
+  common.RequestMetadata request_metadata = 1;
+  string followee_user_id = 2;
+}
+
+message UnfollowUserResponse {
+  common.ResponseMetadata response_metadata = 1;
+}
+
