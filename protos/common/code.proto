@@ -4,10 +4,18 @@ package common;
 
 option go_package = "gen/go/commonpb";
 
-enum ResponseStatusCode {
+enum StatusCode {
   STATUS_UNSPECIFIED = 0;
   STATUS_OK = 200;
   STATUS_BAD_REQUEST = 400;
   STATUS_NOT_FOUND = 404;
   STATUS_INTERNAL_ERROR = 500;
+}
+
+enum ErrorCode {
+  // System Code
+  CODE_UNSPECFIED = 0;
+
+  // Validation Error Code
+  CODE_CONTENT_EMPTY = 10000;
 }

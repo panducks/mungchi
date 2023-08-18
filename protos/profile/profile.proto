@@ -1,29 +1,56 @@
 syntax = "proto3";
 
 import "common/metadata.proto";
-import "common/result.proto";
 
 option go_package = "gen/go/profilepb";
 
 service ProfileService {
-  rpc CreateProfile(CreateProfileRequeset) returns (CreateProfileResponse) {}
   rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {}
-}
-
-message CreateProfileRequeset {
-  common.Metadata metadata = 1;
-  string nickname = 2;
-}
-
-message CreateProfileResponse {
-  common.ResponseStatusCode status_code = 1;
+  rpc ListProfiles(ListProfilesRequest) returns (ListProfilesResponse) {}
+  rpc VerifyNickname(VerifyNicknameRequest) returns (VerifyNicknameResponse) {}
+  rpc UpsertProfile(UpsertProfileRequeset) returns (UpsertProfileResponse) {}
 }
 
 message GetProfileRequest {
-  common.Metadata metadata = 1;
+  common.RequestMetadata request_metadata = 1;
 }
 
 message GetProfileResponse {
-  common.ResponseStatusCode status_code = 1;
+  common.ResponseMetadata response_metadata = 1;
+  Profile profile = 2;
+}
+
+message ListProfilesRequest {
+  common.RequestMetadata request_metadata = 1;
+  repeated string user_ids = 2;
+}
+
+message ListProfilesResponse {
+  common.ResponseMetadata response_metadata = 1;
+  repeated Profile profiles = 2;
+}
+
+message VerifyNicknameRequest {
+  common.RequestMetadata request_metadata = 1;
   string nickname = 2;
+}
+
+message VerifyNicknameResponse {
+  common.ResponseMetadata response_metadata = 1;
+}
+
+message UpsertProfileRequeset {
+  common.RequestMetadata request_metadata = 1;
+  string nickname = 2;
+  string image_url = 3;
+}
+
+message UpsertProfileResponse {
+  common.ResponseMetadata response_metadata = 1;
+}
+
+message Profile {
+  string user_id = 1;
+  string nickname = 2;
+  string image_url = 3;
 }
