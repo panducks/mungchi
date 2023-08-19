@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  app_tier:
+    driver: bridge
+
 services:
   minio:
     image: quay.io/minio/minio:RELEASE.2023-08-16T20-17-30Z
@@ -8,6 +12,8 @@ services:
       - /data
       - --console-address
       - :9090
+    networks:
+      - app_tier
     ports:
       - ${MINIO_API_PORT}:9000
       - ${MINIO_CONSOLE_PORT}:9090

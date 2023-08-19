@@ -2,7 +2,7 @@ ENV_FILE ?= .env
 TARGET ?= 
 
 ROOTDIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-COMPOSE_CMD = docker-compose -f docker-compose.yaml --env-file $(ENV_FILE) -p mungchi
+COMPOSE_CMD = docker compose -f docker-compose.yaml --env-file $(ENV_FILE) -p mungchi
 
 ##@ General
 
