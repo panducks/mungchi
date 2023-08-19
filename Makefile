@@ -100,7 +100,7 @@ PROTOC_GEN_GO_GRPC_VERSION ?= v1.2.0
 
 .PHONY: protoc
 protoc: ## Install protoc if necessary.
-	@command -v protoc > /dev/null || brew install protoc
+	@command -v protoc > /dev/null || brew install protobuf
 
 .PHONY: protoc-gen-go
 protoc-gen-go: $(PROTOC_GEN_GO) ## Install protoc-gen-go locally if necessary.
