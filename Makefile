@@ -1,10 +1,32 @@
-.DEFAULT_GOAL := help
+ENV_FILE ?= .env
+TARGET ?= 
+
+ROOTDIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+COMPOSE_CMD = docker-compose -f docker-compose.yaml --env-file $(ENV_FILE) -p mungchi
 
 ##@ General
 
 .PHONY: help
 help: ## Display this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+##@ Docker
+
+.PHONY: up
+up: ## Run components.
+	$(COMPOSE_CMD) up -d $(TARGET)
+
+.PHONY: down
+down: ## Shutdown components.
+	$(COMPOSE_CMD) down $(TARGET)
+
+.PHONY: p
+ps: ## Print running components.
+	$(COMPOSE_CMD) ps
+
+.PHONY: log
+logs: ## Tail logs of components.
+	$(COMPOSE_CMD) logs -f $(TARGET)
 
 ##@ Compile
 
@@ -58,7 +80,7 @@ proto-common: protoc protoc-gen-go protoc-gen-go-grpc ## Compile protocol buffer
 		--go-grpc_opt=paths=import \
 		protos/common/*.proto
 
-##@ Compile Dependencies
+##@ Build Dependencies
 
 ## Location to install dependencies to.
 LOCALBIN ?= $(shell pwd)/bin

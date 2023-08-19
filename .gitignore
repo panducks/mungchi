@@ -1,1 +1,4 @@
 /bin
+/minio-storage
+
+.env.*
