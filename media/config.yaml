@@ -1,0 +1,4 @@
+log:
+  format: text # text / json
+  level: debug # debug / info / warn / error
+  reportCaller: false
